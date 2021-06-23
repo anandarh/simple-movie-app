@@ -1,38 +1,56 @@
 package com.anandarh.moviecatalogueapp.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import com.anandarh.moviecatalogueapp.R
-import com.anandarh.moviecatalogueapp.adapters.MovieAdapter
+import com.anandarh.moviecatalogueapp.adapters.PagerAdapter
 import com.anandarh.moviecatalogueapp.databinding.ActivityMainBinding
-import com.anandarh.moviecatalogueapp.models.MovieModel
 import com.anandarh.moviecatalogueapp.models.ResourceMovieModel
+import com.anandarh.moviecatalogueapp.ui.fragments.MovieFragment
+import com.anandarh.moviecatalogueapp.ui.fragments.TvFragment
 import com.anandarh.moviecatalogueapp.utilities.ReadFile
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.movie,
+            R.string.tv_show
+        )
+
+        private val FRAGMENTS = listOf(
+            MovieFragment(),
+            TvFragment()
+        )
+    }
+
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        mAdapter = MovieAdapter()
+        initializeUI()
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = mAdapter
-        }
 
         val jsonString = ReadFile().getJsonFromAsset(this@MainActivity, "resource.json")
         val data = Gson().fromJson(jsonString, ResourceMovieModel::class.java)
 
-        mAdapter.setDataList(data.movies)
+    }
 
+    private fun initializeUI() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        supportActionBar?.elevation = 0F
+
+        binding.viewPager.adapter = PagerAdapter(this, FRAGMENTS)
+
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
     }
 }

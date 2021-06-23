@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -51,14 +53,19 @@ dependencies {
     def gson_version = "2.8.7"
     implementation "com.google.code.gson:gson:$gson_version"
 
-    def viewmodel_version = "2.3.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewmodel_version"
+    def viewmodel_version = "1.0.0-alpha03"
+    def ano_viewmodel_version = "1.0.0"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$viewmodel_version"
+    kapt "androidx.hilt:hilt-compiler:$ano_viewmodel_version"
 
     def activity_version = "1.2.3"
     implementation "androidx.activity:activity-ktx:$activity_version"
 
     def picasso_version = "2.71828"
     implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
 
     testImplementation 'junit:junit:4.13.2'

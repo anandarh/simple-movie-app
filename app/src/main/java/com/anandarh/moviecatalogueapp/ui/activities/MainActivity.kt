@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.anandarh.moviecatalogueapp.R
 import com.anandarh.moviecatalogueapp.adapters.PagerAdapter
 import com.anandarh.moviecatalogueapp.databinding.ActivityMainBinding
-import com.anandarh.moviecatalogueapp.models.ResourceMovieModel
 import com.anandarh.moviecatalogueapp.ui.fragments.MovieFragment
 import com.anandarh.moviecatalogueapp.ui.fragments.TvFragment
-import com.anandarh.moviecatalogueapp.utilities.ReadFile
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -34,10 +33,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         initializeUI()
-
-
-        val jsonString = ReadFile().getJsonFromAsset(this@MainActivity, "resource.json")
-        val data = Gson().fromJson(jsonString, ResourceMovieModel::class.java)
 
     }
 

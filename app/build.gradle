@@ -54,12 +54,11 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     def viewmodel_version = "1.0.0-alpha03"
-    def ano_viewmodel_version = "1.0.0"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$viewmodel_version"
-    kapt "androidx.hilt:hilt-compiler:$ano_viewmodel_version"
+    kapt "androidx.hilt:hilt-compiler:$viewmodel_version"
 
-    def activity_version = "1.2.3"
-    implementation "androidx.activity:activity-ktx:$activity_version"
+    def fragment_version = "1.3.5"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     def picasso_version = "2.71828"
     implementation "com.squareup.picasso:picasso:$picasso_version"

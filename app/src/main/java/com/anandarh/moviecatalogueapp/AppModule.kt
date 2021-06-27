@@ -1,9 +1,7 @@
 package com.anandarh.moviecatalogueapp
 
 import android.content.Context
-import com.anandarh.moviecatalogueapp.models.ResourceMovieModel
-import com.anandarh.moviecatalogueapp.utilities.ReadFile
-import com.google.gson.Gson
+import com.anandarh.moviecatalogueapp.repositories.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,10 +21,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDummyData(@ApplicationContext app: Context): ResourceMovieModel {
-        val jsonString =
-            ReadFile().getJsonFromAsset(app, "resource.json")
-        return Gson().fromJson(jsonString, ResourceMovieModel::class.java)
+    fun provideMovieRepository(@ApplicationContext app: Context): MovieRepository {
+        return MovieRepository(app)
     }
 
 }

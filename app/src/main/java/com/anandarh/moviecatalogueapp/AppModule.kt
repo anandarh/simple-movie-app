@@ -1,7 +1,7 @@
 package com.anandarh.moviecatalogueapp
 
 import android.content.Context
-import com.anandarh.moviecatalogueapp.repositories.MovieRepository
+import com.anandarh.moviecatalogueapp.data.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
